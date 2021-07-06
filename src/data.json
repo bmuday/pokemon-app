@@ -1,0 +1,5 @@
+[
+  { "name": "ditto", "abilities": ["limber", "imposter"] },
+  { "name": "bulbasaur", "abilities": ["overgrow", "chlorophyll"] },
+  { "name": "pikachu", "abilities": ["static", "lightning-rod"] }
+]
