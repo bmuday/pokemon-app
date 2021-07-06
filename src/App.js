@@ -14,14 +14,21 @@ export default function App() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(currentPageUrl).then((res) => {
-      setNextPageUrl(res.data.next);
-      setPrevPageUrl(res.data.previous);
-      setPokemon(res.data.results);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1500);
-    });
+    let cancel;
+    axios
+      .get(currentPageUrl, {
+        cancelToken: new axios.CancelToken((c) => (cancel = c)),
+      })
+      .then((res) => {
+        setNextPageUrl(res.data.next);
+        setPrevPageUrl(res.data.previous);
+        setPokemon(res.data.results);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
+      });
+
+    return () => cancel();
   }, [currentPageUrl]);
 
   if (loading) return "Loading...";
